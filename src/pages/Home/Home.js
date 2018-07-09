@@ -247,7 +247,7 @@ const SignupForm = ({
             )}
           </RFField>
           <br />
-          <Button fluid disabled={progressStep !== 4} > Submit </Button>
+          <Button fluid disabled={progressStep >= 4} > Submit </Button>
         </Form>
       )}
     </RFForm>

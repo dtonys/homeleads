@@ -103,7 +103,7 @@ const developmentConfig = {
   plugins: [
     new TimeFixPlugin(),
   ],
-  serve: serveConfig,
+  // serve: serveConfig,
 };
 
 const productionConfig = {

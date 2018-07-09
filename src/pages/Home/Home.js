@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import queryString from 'queryString';
+import queryString from 'query-string';
 import { compose } from 'redux';
 
 import { hot } from 'react-hot-loader';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// TODO(@dtonys): Add proptypes
+// import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import queryString from 'query-string';
 import { compose } from 'redux';
 
 import { hot } from 'react-hot-loader';
@@ -210,7 +210,7 @@ const SignupForm = ({
             <Input
               readOnly
               placeholder=""
-              label='$'
+              label="$"
               value={ getRentRange(suggestedMonthlyRent)[0] }
               loading={apiLoading}
             />
@@ -220,7 +220,7 @@ const SignupForm = ({
             <Input
               readOnly
               placeholder=""
-              label='$'
+              label="$"
               value={ getRentRange(suggestedMonthlyRent)[1] }
               loading={apiLoading}
             />
@@ -239,7 +239,7 @@ const SignupForm = ({
             {({ input, meta }) => (
               <Form.Field disabled={ progressStep < 3 } >
                 <label>actual monthly rent</label>
-                <Input {...input} label='$' placeholder='' />
+                <Input {...input} label="$" placeholder="" />
                 { meta.touched && meta.error &&
                   <p className={styles.inputError} > {meta.error} </p>
                 }
@@ -257,7 +257,7 @@ const SignupForm = ({
 const SearchedProperties = ({ searchHistory }) => (
   <div>
     <Header as="h3"> Searched Properties </Header>
-    <Table celled compact='very'>
+    <Table celled compact="very">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Property</Table.HeaderCell>
@@ -406,9 +406,6 @@ class HomePage extends Component {
     if ( basicInfoValid && suggestedMonthlyRent && actualMonthlyRentValid ) {
       newProgressStep = 4;
     }
-    if ( basicInfoValid && suggestedMonthlyRent && actualMonthlyRentValid ) {
-      newProgressStep = 4;
-    }
     if ( submitSuccess ) {
       newProgressStep = 5;
     }
@@ -438,7 +435,6 @@ class HomePage extends Component {
         'Content-Type': 'application/json',
       },
     });
-    const responseData = await response.json();
     alert( 'Submit success! Thank you for signing up.' );
 
     this.setState({

@@ -1,308 +1,20 @@
 import React, { Component } from 'react';
-// TODO(@dtonys): Add proptypes
-// import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { compose } from 'redux';
-
+import queryString from 'querystring';
 import { hot } from 'react-hot-loader';
-import {
-  Form as RFForm,
-  Field as RFField,
-  FormSpy as RFFormSpy,
-} from 'react-final-form';
-import {
-  required as requiredValidator,
-  email as emailValidator,
-  exactLength as exactLengthValidator,
-  composeValidators,
-} from 'helpers/validators';
-import {
-  phone as normalizePhone,
-  number as normalizeNumber,
-} from 'helpers/normalizers';
-
-import PlacesAutocomplete from 'react-places-autocomplete';
 
 import styles from './Home.scss';
+
+import Instructions from 'components/Instructions/Instructions';
+import SignupFormProgress from 'components/SignupFormProgress/SignupFormProgress';
+import SignupForm from 'components/SignupForm/SignupForm';
+import SearchedProperties from 'components/SearchedProperties/SearchedProperties';
 import {
-  Header,
-  Table,
-  Form,
-  Button,
-  Input,
-} from 'semantic-ui-react';
+  getWindowWidth,
+  windowWidthIsMobile,
+  currentWindowWidthIsMobile,
+} from 'helpers/browser';
 
-
-const SignupFormProgress = ({ progressStep }) => (
-  <div>
-    <Header as="h3"> Your Progress </Header>
-    <div className={styles.circleContainer} >
-      <div className={styles.circleRegion} >
-        <div className={classnames(
-          styles.circle,
-          progressStep > 1 ? styles.completed : null,
-          progressStep === 1 ? styles.active : null,
-        )} >
-          <div className={styles.circleText} > {'Basic Info'} </div>
-        </div>
-      </div>
-      <div className={styles.circleRegion} >
-        <div className={classnames(
-          styles.circle,
-          progressStep > 2 ? styles.completed : null,
-          progressStep === 2 ? styles.active : null,
-        )} >
-          <div className={styles.circleText} > {'Home Address'} </div>
-        </div>
-      </div>
-      <div className={styles.circleRegion} >
-        <div className={classnames(
-          styles.circle,
-          progressStep > 3 ? styles.completed : null,
-          progressStep === 3 ? styles.active : null,
-        )} >
-          <div className={styles.circleText} > {'Monthly Rent'} </div>
-        </div>
-      </div>
-      <div className={styles.circleRegion} >
-        <div className={classnames(
-          styles.circle,
-          progressStep > 4 ? styles.completed : null,
-          progressStep === 4 ? styles.active : null,
-        )} >
-          <div className={styles.circleText} > {'Signup Complete'} </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const getRentRange = ( suggestedMonthlyRent ) => {
-  return [
-    suggestedMonthlyRent ? suggestedMonthlyRent - ( suggestedMonthlyRent * 0.1 ) : '',
-    suggestedMonthlyRent ? suggestedMonthlyRent + ( suggestedMonthlyRent * 0.1 ) : '',
-  ];
-};
-const SignupForm = ({
-  onSubmit,
-  onFormStateChange,
-  progressStep,
-  autoCompleteAddress,
-  onAutoCompleteSelect,
-  onAutoCompleteChange,
-  onAddressBlur,
-  addressTouched,
-  autoCompleteSelected,
-  apiLoading,
-  noZillowDataOnAddress,
-  suggestedMonthlyRent,
-  initialFormValues,
-}) => (
-  <div>
-    <Header as="h3"> Enter your information </Header>
-    <RFForm
-      onSubmit={ onSubmit }
-      initialValues={ initialFormValues }
-    >
-      {({ handleSubmit }) => (
-        <Form className={styles.form} onSubmit={ handleSubmit } >
-          <RFFormSpy onChange={onFormStateChange} />
-          <RFField name="first_name" >
-            {({ input, meta }) => (
-              <Form.Field >
-                <label>first name</label>
-                <input {...input} placeholder='first name' />
-                { meta.touched && meta.error &&
-                  <p className={styles.inputError} > {meta.error} </p>
-                }
-              </Form.Field>
-            )}
-          </RFField>
-          <RFField name="last_name" >
-            {({ input, meta }) => (
-              <Form.Field >
-                <label>last name</label>
-                <input {...input} placeholder='last name' />
-                { meta.touched && meta.error &&
-                  <p className={styles.inputError} > {meta.error} </p>
-                }
-              </Form.Field>
-            )}
-          </RFField>
-          <RFField name="email" validate={composeValidators(requiredValidator, emailValidator)} >
-            {({ input, meta }) => (
-              <Form.Field >
-                <label>email</label>
-                <input {...input} placeholder='email' />
-                { meta.touched && meta.error &&
-                  <p className={styles.inputError} > {meta.error} </p>
-                }
-              </Form.Field>
-            )}
-          </RFField>
-          <RFField name="phone"
-            validate={composeValidators(
-              requiredValidator, exactLengthValidator(14, 'Invalid phone number')
-            )}
-            parse={normalizePhone}
-          >
-            {({ input, meta }) => (
-              <Form.Field >
-                <label>phone</label>
-                <input {...input} placeholder="phone" />
-                { meta.touched && meta.error &&
-                  <p className={styles.inputError} > {meta.error} </p>
-                }
-              </Form.Field>
-            )}
-          </RFField>
-          <br /><hr /><br />
-          <Form.Field disabled={ progressStep < 2 } >
-            <label>address</label>
-            <PlacesAutocomplete
-              value={autoCompleteAddress}
-              onChange={onAutoCompleteChange}
-              onSelect={onAutoCompleteSelect}
-              googleLogo
-            >
-              {( {
-                getInputProps, suggestions, getSuggestionItemProps, loading,
-              } ) => (
-                <div>
-                  <input
-                    {...getInputProps({
-                      placeholder: 'Enter an address ...',
-                      className: 'location-search-input',
-                    })}
-                    onBlur={onAddressBlur}
-                  />
-                  <div className="autocomplete-dropdown-container">
-                    {loading && <div>Loading...</div>}
-                    {suggestions.map((suggestion) => {
-                      const className = suggestion.active
-                        ? 'suggestion-item--active'
-                        : 'suggestion-item';
-                      // inline style for demonstration purpose
-                      const style = suggestion.active
-                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                      return (
-                        <div
-                          {...getSuggestionItemProps(suggestion, {
-                            className,
-                            style,
-                          })}
-                        >
-                          <span>{suggestion.description}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </PlacesAutocomplete>
-            { !(progressStep < 2) && addressTouched && !autoCompleteSelected &&
-              <p className={styles.inputError} > Invalid Address </p>
-            }
-          </Form.Field>
-          <Form.Field disabled={ progressStep < 2 } >
-            <label>suggested monthly rent minimum</label>
-            <Input
-              readOnly
-              placeholder=""
-              label="$"
-              value={ getRentRange(suggestedMonthlyRent)[0] }
-              loading={apiLoading}
-            />
-          </Form.Field>
-          <Form.Field disabled={ progressStep < 2 } >
-            <label>suggested monthly rent maximum</label>
-            <Input
-              readOnly
-              placeholder=""
-              label="$"
-              value={ getRentRange(suggestedMonthlyRent)[1] }
-              loading={apiLoading}
-            />
-            { noZillowDataOnAddress &&
-              <p className={styles.inputError} > {'No address data found'} </p>
-            }
-            <div style={{ textAlign: 'right', marginTop: 10 }} >
-              <img src="/img/Zillowlogo_200x50.gif" />
-            </div>
-          </Form.Field>
-          <br /><hr /><br />
-          <RFField
-            name="actual_monthly_rent"
-            parse={normalizeNumber}
-          >
-            {({ input, meta }) => (
-              <Form.Field disabled={ progressStep < 3 } >
-                <label>actual monthly rent</label>
-                <Input {...input} label="$" placeholder="" />
-                { meta.touched && meta.error &&
-                  <p className={styles.inputError} > {meta.error} </p>
-                }
-              </Form.Field>
-            )}
-          </RFField>
-          <br />
-          <Button fluid disabled={progressStep < 4} > Submit </Button>
-        </Form>
-      )}
-    </RFForm>
-  </div>
-);
-
-const SearchedProperties = ({ searchHistory }) => (
-  <div>
-    <Header as="h3"> Searched Properties </Header>
-    <Table celled compact="very">
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Property</Table.HeaderCell>
-          <Table.HeaderCell>Rent Min</Table.HeaderCell>
-          <Table.HeaderCell>Rent Max</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        { searchHistory.map(( [ street, suggestedMonthlyRent ], index ) => {
-          const [ rentMin, rentMax ] = getRentRange(suggestedMonthlyRent);
-          return (
-            <Table.Row key={ index } >
-              <Table.Cell>{street}</Table.Cell>
-              <Table.Cell>{rentMin}</Table.Cell>
-              <Table.Cell>{rentMax}</Table.Cell>
-            </Table.Row>
-          );
-        }) }
-      </Table.Body>
-    </Table>
-  </div>
-);
-
-const Instructions = () => (
-  <div>
-    <Header as="h3"> Start collecting leads for your home </Header>
-    <div style={{ textAlign: 'left' }} >
-      <p> {'Please fill out the form on this page to signup to our service.'} </p>
-      <p> {'First, enter your basic information.'} </p>
-      <p> {`Next, enter the address of your home, and we'll look up your
-              expected monthly rent for this property, fetched from Zillow.`}
-      </p>
-      <p> {`Finally, enter the rent you would like to associate with this property,
-                    and hit the submit button to save this property and signup for our service.`}
-      </p>
-      <p> {'We\'ll save every property you search for, along with its expected monthly rent.'} </p>
-    </div>
-  </div>
-);
-
-// Window width helpers
-const WINDOW_WIDTH_MOBILE = 750;
-const getWindowWidth = () => ( Math.max(document.documentElement.clientWidth, window.innerWidth || 0) );
-const windowWidthIsMobile = ( windowWidth ) => ( windowWidth <= WINDOW_WIDTH_MOBILE );
-const currentWindowWidthIsMobile = () => ( windowWidthIsMobile( getWindowWidth() ) );
 
 class HomePage extends Component {
   constructor( props ) {
@@ -428,14 +140,14 @@ class HomePage extends Component {
       ...values,
       address: this.state.autoCompleteAddress,
     };
-    const response = await fetch('/signup', {
+    await fetch('/signup', {
       method: 'POST',
       body: JSON.stringify(apiValues),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    alert( 'Submit success! Thank you for signing up.' );
+    alert( 'Submit success! Thank you for signing up.' ); // eslint-disable-line no-alert
 
     this.setState({
       progressStep: 5,
@@ -445,8 +157,8 @@ class HomePage extends Component {
 
   fetchZillowData = async (address) => {
     // naive parsing strategy
-    const [ street, city, state_zip ] = address.split(',').map((item) => ( item.trim() ));
-    const [ state ] = state_zip.split(' ');
+    const [ street, city, stateZip ] = address.split(',').map((item) => ( item.trim() ));
+    const [ state ] = stateZip.split(' ');
 
     const qs = queryString.stringify({
       address: street,
@@ -606,7 +318,4 @@ class HomePage extends Component {
   }
 }
 
-// compose
-export default compose(
-  hot(module),
-)(HomePage);
+export default hot(module)(HomePage);

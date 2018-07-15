@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styles from './App.scss';
 import { NOT_FOUND } from 'redux-first-router';
 import { ROUTE_HOME } from 'redux/routesMap';
+import { hot } from 'react-hot-loader';
 
 
 const actionToComponentPath = {
@@ -59,9 +60,4 @@ class App extends Component {
   }
 }
 
-if ( module.hot ) {
-  const { hot } = require('react-hot-loader');
-  App = hot(module)(App);
-}
-
-export default App;
+export default hot(module)(App);

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { Header } from 'semantic-ui-react';
-
+import { hot } from 'react-hot-loader';
 import styles from './NotFound.scss';
 
 
-let NotFoundPage = () => {
+const NotFoundPage = () => {
   return (
     <div className={styles.notFound} >
       <Header> Page Not Found </Header>
@@ -13,8 +12,4 @@ let NotFoundPage = () => {
   );
 };
 
-if ( module.hot ) {
-  const { hot } = require('react-hot-loader');
-  NotFoundPage = hot(module)(NotFoundPage);
-}
-export default NotFoundPage;
+export default hot(module)(NotFoundPage);

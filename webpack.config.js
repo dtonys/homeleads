@@ -1,10 +1,10 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
+const webpack = require('webpack');
 
-const history = require('connect-history-api-fallback');
-const convert = require('koa-connect');
 const cssnano = require('cssnano');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TimeFixPlugin = require('time-fix-plugin');
@@ -15,12 +15,8 @@ const PATHS = {
   src: path.resolve(__dirname, 'src'),
   dist: path.resolve(__dirname, 'dist'),
 };
+
 const commonConfig = {
-  entry: [
-    'babel-polyfill',
-    'whatwg-fetch',
-    PATHS.entry,
-  ],
   output: {
     path: PATHS.dist,
     publicPath: '/',
@@ -49,30 +45,20 @@ const commonConfig = {
     new HtmlWebPackPlugin({
       template: 'src/index.html',
       filename: 'index.html',
+      alwaysWriteToDisk: true,
     }),
+    new HtmlWebpackHarddiskPlugin(),
   ],
-};
-
-// `serve` config applies to webpack-serve module
-const serveConfig = {
-  content: 'public',
-  dev: {
-    publicPath: '/',
-  },
-  hot: {
-    hot: true,
-    reload: false,
-  },
-  add: (app, /* middleware, options */) => {
-    // this redirects all page requests to the index.html
-    app.use(convert(
-      history({ index: '/index.html' })
-    ));
-  },
 };
 
 const developmentConfig = {
   mode: 'development',
+  entry: [
+    'babel-polyfill',
+    'whatwg-fetch',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
+    PATHS.entry,
+  ],
   module: {
     rules: [
       // style loader, for pre-build, pre-processed stylesheets
@@ -102,12 +88,17 @@ const developmentConfig = {
   },
   plugins: [
     new TimeFixPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
   ],
-  // serve: serveConfig,
 };
 
 const productionConfig = {
   mode: 'production',
+  entry: [
+    'babel-polyfill',
+    'whatwg-fetch',
+    PATHS.entry,
+  ],
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',

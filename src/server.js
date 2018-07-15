@@ -7,6 +7,8 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
 const queryString = require('querystring');
 const xml2js = require('xml2js');
 const lodash = require('lodash');
@@ -53,16 +55,21 @@ function sendMail({
 
 // setup express and middleware
 const app = express();
-app.use( express.static('dist') );
+
+// serve webpack compiled assets
+if ( process.env.NODE_ENV !== 'production' ) {
+  const compiler = webpack(webpackConfig('development'));
+  app.use( webpackDevMiddleware(compiler) );
+  app.use( webpackHotMiddleware(compiler) );
+}
+else {
+  app.use( express.static('dist') );
+}
+
 app.use( express.static('public') );
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(requestIp.mw());
-
-if ( process.env.NODE_ENV !== 'production' ) {
-  const compiler = webpack(webpackConfig('development'));
-  app.use( webpackDevMiddleware(compiler) );
-}
 
 // api routes
 app.get('/property-data', ( req, res ) => {

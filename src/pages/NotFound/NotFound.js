@@ -1,5 +1,4 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
 import { hot } from 'react-hot-loader';
 import styles from './NotFound.scss';
 
@@ -7,7 +6,7 @@ import styles from './NotFound.scss';
 const NotFoundPage = () => {
   return (
     <div className={styles.notFound} >
-      <Header> Page Not Found </Header>
+      <h1> Page Not Found </h1>
     </div>
   );
 };

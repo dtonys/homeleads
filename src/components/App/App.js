@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styles from './App.scss';
 import { NOT_FOUND } from 'redux-first-router';
-import { ROUTE_HOME } from 'redux/routesMap';
+import { ROUTE_SIGNUP } from 'redux/routesMap';
 import { hot } from 'react-hot-loader';
 
 
 const actionToComponentPath = {
-  [ ROUTE_HOME ]: 'Home/Home',
+  [ ROUTE_SIGNUP ]: 'Signup/Signup',
   [ NOT_FOUND ]: 'NotFound/NotFound',
 };
 

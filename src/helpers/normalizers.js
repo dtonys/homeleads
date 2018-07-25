@@ -18,3 +18,11 @@ export function number( value ) {
 
   return value.replace(/[^0-9]/g, '');
 }
+
+export function commify( value ) {
+  if (!value) {
+    return value;
+  }
+
+  return value.toString().replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ',');
+}

@@ -1,0 +1,219 @@
+// global styles for google places autocomplete
+:global(.suggestion-item) {
+  padding: 20px;
+  border-bottom: solid black 1px;
+  background-color: #ffffff;
+  cursor: 'pointer';
+  text-align: left;
+}
+
+:global(.suggestion-item--active) {
+  padding: 20px;
+  border-bottom: solid black 1px;
+  background-color: #fafafa;
+  cursor: 'pointer';
+  text-align: left;
+  &:global(.mobile) {
+    font-size: 16px;
+  }
+}
+
+.loadingItemText {
+  background: #FFF;
+  font-size: 24px;
+  &.mobile {
+    font-size: 16px;
+  }
+}
+
+.suggestionItemText {
+  font-size: 24px;
+  &.mobile {
+    font-size: 16px;
+  }
+}
+
+.signup {
+  max-width: 590px;
+  margin: auto;
+  margin-top: 138px;
+  z-index: 1;
+  &.mobile {
+    margin-top: 42px;
+  }
+}
+
+.signupForm__wrap {
+  background: #FFF;
+  border: solid #EDEDED 1px;
+}
+
+.signupForm {
+  text-align: left;
+}
+
+.signupForm__inputWrap {
+  position: relative;
+  display: flex;
+  padding: 24px;
+  border-bottom: solid #EDEDED 1px;
+  width: 100%;
+  height: 100%;
+  &.mobile {
+    padding: 10px;
+  }
+  &.error {
+    border-bottom: solid red 2px;
+  }
+}
+
+.signupForm__input {
+  height: 46px;
+  overflow: hidden;
+  font-size: 25px;
+  width: 100%;
+  &.mobile {
+    font-size: 16px;
+  }
+
+}
+.signupForm__input::placeholder {
+  color: #CCCCCC;
+  font-weight: 300;
+}
+
+.signupDisclaimer {
+  font-size: 14px;
+  width: 229px;
+  margin: auto;
+  text-align: center;
+  color: #AAAAAA;
+  line-height: 19px;
+  font-weight: 300;
+}
+
+.signupBtn {
+  background: #009BFF;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  height: 50px;
+  min-width: 378px;
+  margin: auto;
+  cursor: pointer;
+  &.mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  &.disabled {
+    background: #AAA;
+    cursor: default;
+  }
+}
+
+.inputError {
+  margin-top: 5px;
+  color: red;
+}
+
+// basic info
+.signupStepBasicInfo {
+  text-align: center;
+  padding-bottom: 71px;
+}
+
+// home address
+.signupStepHomeAddress {
+  text-align: center;
+}
+
+.signupStepHomeAddress__inputWrap {
+  position: relative;
+}
+.signupStepHomeAddress__input__clearX {
+  width: 25px;
+  position: absolute;
+  right: 42px;
+  top: 40px;
+  cursor: pointer;
+  &.mobile {
+    width: 17px;
+    top: 24px;
+    right: 22px;
+  }
+}
+.signupStepHomeAddress__input {
+  padding: 38px;
+  padding-right: 80px;
+  width: 100%;
+  max-width: 592px;
+  height: 103px;
+  &.mobile {
+    font-size: 16px;
+    padding: 23px;
+    padding-right: 50px;
+    height: auto;
+  }
+}
+
+.signupStepHomeAddress__input::placeholder {
+  color: #CCCCCC;
+  font-weight: 300;
+}
+
+// rent price
+.signupStepRentPrice {
+  text-align: center;
+}
+
+.signupStepRentPrice__textSmall {
+  font-size: 18px;
+  color: #AAA;
+  line-height: 22px;
+  font-weight: 300;
+  margin: auto;
+  &.mobile {
+    max-width: 210px;
+    font-size: 14px;
+  }
+}
+
+.signupStepRentPrice__textLarge {
+  font-size: 24px;
+  color: #555555;
+  padding-bottom: 10px;
+  &.mobile {
+    font-size: 18px;
+  }
+}
+
+.signupStepRentPrice__priceText {
+  font-size: 46px;
+  color: #555;
+}
+
+.signupStepRentPrice__input {
+  font-size: 24px;
+  max-width: 217px;
+  background: #F7F7F7;
+  text-align: left;
+  &.mobile {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+.signupStepRentPrice__input::placeholder {
+  color: rgba(85,85,85,0.38);
+  font-weight: 300;
+}
+
+.signupStepRentPrice__inputUnderline {
+  padding-top: 3px;
+  border-bottom: solid #E3E2E2 1px;
+}
+
+
+

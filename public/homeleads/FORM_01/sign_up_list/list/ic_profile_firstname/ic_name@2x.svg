@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="16px" viewBox="0 0 21 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <title>2ECD6F39-469E-4611-929C-5CA5D217F7DC@2x</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="FORM_01" transform="translate(-20.000000, -97.000000)">
+            <g id="sign_up_list" transform="translate(0.000000, 72.000000)">
+                <g id="list">
+                    <g id="ic_profile_firstname" transform="translate(15.000000, 18.000000)">
+                        <g id="ic_name" transform="translate(6.000000, 8.000000)">
+                            <rect id="Rectangle-2072" stroke="#CCCCCC" stroke-width="2" x="0" y="0" width="19" height="14"></rect>
+                            <rect id="Rectangle-1206" fill="#CCCCCC" x="10" y="4" width="6.92787244" height="1"></rect>
+                            <polygon id="Rectangle-1206-Copy" fill="#CCCCCC" points="10 6 16.9278724 6 16.9278724 6.93333333 10 6.93333333"></polygon>
+                            <path d="M8.55,10.0666667 L2.21666667,10.0666667 L2.21666667,9.56662797 C2.21666667,8.56655059 4.32777778,8.01650803 5.38333333,8.01650803 C6.43888889,8.01650803 8.55,8.56655059 8.55,9.56662797 L8.55,10.0666667 L8.55,10.0666667 Z" id="Path" fill="#CCCCCC"></path>
+                            <path d="M6.96666667,5.39498732 C6.96666667,6.28309434 6.25944444,7 5.38333333,7 C4.50722222,7 3.8,6.28309434 3.8,5.39498732 C3.8,4.50688031 4.50722222,3.78997465 5.38333333,3.78997465 C6.25944444,3.78997465 6.96666667,4.50688031 6.96666667,5.39498732 Z" id="Path" fill="#CCCCCC"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

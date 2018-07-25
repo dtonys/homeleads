@@ -1,7 +1,7 @@
-export const ROUTE_HOME = 'ROUTE_HOME';
+export const ROUTE_SIGNUP = 'ROUTE_SIGNUP';
 
 const routesMap = {
-  [ ROUTE_HOME ]: '/',
+  [ ROUTE_SIGNUP ]: '/',
 };
 
 export default routesMap;
